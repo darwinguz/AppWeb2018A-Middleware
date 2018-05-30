@@ -5,10 +5,19 @@ const fs = require('fs');
 @Injectable()
 export class CacheMiddleware implements NestMiddleware {
 
-    resolve(nivelDeLog: string): MiddlewareFunction {
+    resolve(): MiddlewareFunction {
         return (request, response, next) => {
             console.log('**** DESDE MIDDLEWARE CACHE ****');
-            next(); // ERROR SI NO SE LLAMA
+            const nombreCookie = request.params.nombre;
+            const existeCookie = request.cookies[nombreCookie];
+            if (existeCookie) {
+                console.log('EN CACHE');
+            } else {
+                // seteando la cookie 1) NOMBRE 2) VALOR
+                response.cookie(nombreCookie, '12345');
+                console.log('NO EN CACHE');
+            }
+            next();
         };
     }
 }

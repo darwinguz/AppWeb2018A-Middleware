@@ -5,9 +5,8 @@ export class ParametrosController {
 
     @Get('cookie')
     peekCookie(@Req() request, @Res() response) {
-        request.cooki
+        console.log(`LISTA DE COOKIES: ${request.cookies}`);
         const nombreCookie = 'cookie-wrad';
-        console.log(request.cookies);
         const existeCookie = request.cookies[nombreCookie];
         if (existeCookie) {
             return response.send('EN CACHE');
